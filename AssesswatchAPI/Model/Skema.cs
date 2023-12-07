@@ -24,7 +24,7 @@ namespace AssesswatchAPI.Model
             List<SkemaModel> skemaList = new List<SkemaModel>();
             try
             {
-                string query = "select * from monitoring_data";
+                string query = "select * from tb_skema";
                 SqlCommand command = new SqlCommand(query, _connection);
                 _connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -54,7 +54,7 @@ namespace AssesswatchAPI.Model
             SkemaModel skemaModel = new SkemaModel();
             try
             {
-                string query = "select * from monitoring_data where id = @p1";
+                string query = "select * from tb_skema where id = @p1";
                 SqlCommand command = new SqlCommand(query, _connection);
                 command.Parameters.AddWithValue("@p1", id);
                 _connection.Open();
@@ -78,7 +78,7 @@ namespace AssesswatchAPI.Model
         {
             try
             {
-                string query = "insert into monitoring_data values(@p1,@p2,@p3)";
+                string query = "insert into tb_skema values(@p1,@p2,@p3)";
                 SqlCommand command = new SqlCommand(query, _connection);
                 command.Parameters.AddWithValue("@p1", skemaModel.Nama_skema);
                 command.Parameters.AddWithValue("@p2", skemaModel.start_date);
@@ -98,7 +98,7 @@ namespace AssesswatchAPI.Model
         {
             try
             {
-                string query = "update monitoring_data " +
+                string query = "update tb_skema " +
                     "set Nama_Skena = @p2" +
                     ",start_date = @p3" +
                     ",end_date = @p4" +
@@ -120,7 +120,7 @@ namespace AssesswatchAPI.Model
         {
             try
             {
-                string query = "delete from monitoring_data id = @p1";
+                string query = "delete from tb_skema id = @p1";
                 using SqlCommand command = new SqlCommand(query, _connection);
                 command.Parameters.AddWithValue("@p1", id);
                 _connection.Open();

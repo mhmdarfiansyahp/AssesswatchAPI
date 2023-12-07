@@ -52,7 +52,7 @@ namespace AssesswatchAPI.Controllers
         }
 
 
-        [HttpGet("/InsertSkema", Name = "InsertSkema")]
+        [HttpPost("/InsertSkema", Name = "InsertSkema")]
         public IActionResult InsertSkema([FromBody] SkemaModel skemaModel)
         {
             try
@@ -71,7 +71,7 @@ namespace AssesswatchAPI.Controllers
 
 
 
-        [HttpGet("/UpdateSkema", Name = "UpdateSkema")]
+        [HttpPut("/UpdateSkema", Name = "UpdateSkema")]
         public IActionResult UpdateSkema([FromBody] SkemaModel skemaModel)
         {
             SkemaModel skema = new SkemaModel();
@@ -94,7 +94,7 @@ namespace AssesswatchAPI.Controllers
             return Ok(response);
         }
 
-        [HttpGet("/DeleteSkema", Name = "DeleteSkema")]
+        [HttpDelete("/DeleteSkema", Name = "DeleteSkema")]
         public IActionResult DeleteSkema(int id)
         {
             try
