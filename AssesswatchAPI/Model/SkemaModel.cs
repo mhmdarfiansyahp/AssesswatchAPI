@@ -8,11 +8,5 @@ namespace AssesswatchAPI.Model
 
         public string Nama_skema { get; set; }
 
-
-        [DataType(DataType.Date)]
-        public DateTime start_date { get; set; }
-
-        [DataType(DataType.Date)]
-        public DateTime end_date { get; set; }
     }
 }

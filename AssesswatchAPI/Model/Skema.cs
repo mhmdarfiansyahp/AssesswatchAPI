@@ -21,7 +21,7 @@ namespace AssesswatchAPI.Model
 
         public List<SkemaModel> getAllData()
         {
-            List<SkemaModel> skemaList = new List<SkemaModel>();
+            List<SkemaModel> bukuList = new List<SkemaModel>();
             try
             {
                 string query = "select * from tb_skema";
@@ -30,14 +30,12 @@ namespace AssesswatchAPI.Model
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    SkemaModel skema = new SkemaModel
+                    SkemaModel buku = new SkemaModel
                     {
                         id = Convert.ToInt32(reader["id_skema"].ToString()),
-                        Nama_skema = reader["Nama_Skema"].ToString(),
-                        start_date = Convert.ToDateTime(reader["start_date"]),
-                        end_date = Convert.ToDateTime(reader["end_date"]),
+                        Nama_skema = reader["Nama_skema"].ToString(),
                     };
-                    skemaList.Add(skema);
+                    bukuList.Add(buku);
                 }
                 reader.Close();
                 _connection.Close();
@@ -46,7 +44,7 @@ namespace AssesswatchAPI.Model
             {
                 Console.WriteLine(ex.Message);
             }
-            return skemaList;
+            return bukuList;
         }
 
         public SkemaModel getData(int id)
@@ -54,7 +52,7 @@ namespace AssesswatchAPI.Model
             SkemaModel skemaModel = new SkemaModel();
             try
             {
-                string query = "select * from tb_skema where id = @p1";
+                string query = "select * from tb_skema where id_skema = @p1";
                 SqlCommand command = new SqlCommand(query, _connection);
                 command.Parameters.AddWithValue("@p1", id);
                 _connection.Open();
@@ -62,8 +60,6 @@ namespace AssesswatchAPI.Model
                 reader.Read();
                 skemaModel.id = Convert.ToInt32(reader["id_skema"].ToString());
                 skemaModel.Nama_skema = reader["Nama_Skema"].ToString();
-                skemaModel.start_date = Convert.ToDateTime(reader["start_date"]);
-                skemaModel.end_date = Convert.ToDateTime(reader["end_date"]);
                 reader.Close();
                 _connection.Close();
             }
@@ -74,15 +70,13 @@ namespace AssesswatchAPI.Model
             return skemaModel;
         }
 
-        public void insertData(SkemaModel skemaModel)
+        public void insertData(SkemaModel bukuModel)
         {
             try
             {
-                string query = "insert into tb_skema values(@p1,@p2,@p3)";
+                string query = "insert into tb_skema values(@p1)";
                 SqlCommand command = new SqlCommand(query, _connection);
-                command.Parameters.AddWithValue("@p1", skemaModel.Nama_skema);
-                command.Parameters.AddWithValue("@p2", skemaModel.start_date);
-                command.Parameters.AddWithValue("@p3", skemaModel.end_date);
+                command.Parameters.AddWithValue("@p1", bukuModel.Nama_skema);
                 _connection.Open();
                 command.ExecuteNonQuery();
                 _connection.Close();
@@ -100,15 +94,11 @@ namespace AssesswatchAPI.Model
             {
                 string query = "update tb_skema " +
                     "set Nama_Skena = @p2" +
-                    ",start_date = @p3" +
-                    ",end_date = @p4" +
                     "where id_skema = @p1";
 
                 using SqlCommand command = new SqlCommand(query, _connection);
                 command.Parameters.AddWithValue("@p1", skemaModel.id);
                 command.Parameters.AddWithValue("@p2", skemaModel.Nama_skema);
-                command.Parameters.AddWithValue("@P3", skemaModel.start_date);
-                command.Parameters.AddWithValue("@p4", skemaModel.end_date);
             }
             catch (Exception ex)
             {
@@ -120,7 +110,7 @@ namespace AssesswatchAPI.Model
         {
             try
             {
-                string query = "delete from tb_skema id = @p1";
+                string query = "delete from tb_skema id_skema = @p1";
                 using SqlCommand command = new SqlCommand(query, _connection);
                 command.Parameters.AddWithValue("@p1", id);
                 _connection.Open();

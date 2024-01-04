@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AssesswatchAPI.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
     public class SkemaController : Controller
     {
         private readonly Skema _skemarepository;
@@ -16,14 +14,14 @@ namespace AssesswatchAPI.Controllers
             _skemarepository = new Skema(configuration);
         }
 
-        [HttpGet("/GetAllSkema", Name = "GetAllSkema")]
-        public IActionResult GetAllSkema()
+        [HttpGet("/GetAllBuku", Name = "GetAllSkema")]
+        public IActionResult GetAllBuku()
         {
             try
             {
                 response.status = 200;
-                response.message = "Succes";
-                response.data = _skemarepository.getAllData;
+                response.message = "Success";
+                response.data = _skemarepository.getAllData();
             }
             catch (Exception ex)
             {
@@ -77,8 +75,7 @@ namespace AssesswatchAPI.Controllers
             SkemaModel skema = new SkemaModel();
             skema.id = skemaModel.id;
             skema.Nama_skema = skemaModel.Nama_skema;
-            skema.start_date = skemaModel.start_date;
-            skema.end_date = skemaModel.end_date;
+
 
             try
             {
@@ -109,6 +106,11 @@ namespace AssesswatchAPI.Controllers
                 response.message = "Failed, " + ex;
             }
             return Ok(response);
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
     }
 }
